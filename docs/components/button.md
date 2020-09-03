@@ -103,10 +103,19 @@ $button-radius: 4px;
 ```
 
 ## 人工测试
-手动点击。。。已完成
+手动测试。。。已完成
 
 ## 自动化测试
-等待进行
+在**test**文件夹下增加`button.test.js`文件
+主要增加**7**个测试用例，分别是：**测试button是否存在**、**设置icon**、**icon初始位置**、**设置icon位置**、**设置loading**、**设置disabled**、**click点击事件**
+
+运行`npm run dev-test`命令，是配置在package.json文件中的该命令：`parcel watch test/* --no-cache & karma start`，就是监听、打包test文件夹下的*.test.js文件，然后运行karma开始自动化测试，测试结果可在浏览器控制台查看：
+
+![浏览器控制台显示](../public/images/browser.png)
+
+或者powershell面板查看：
+
+![powershell显示](../public/images/powershell.png)
 
 ## vuepress配置
 在**docs/.vuepress/components**文件夹下增加`button-demo`的vue文件，内容就是我们要展示的`button`示例，然后在**docs/components**文件夹下增加`button`的md文件，内容就是放置整个`button`组件说明。

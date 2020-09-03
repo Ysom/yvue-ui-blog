@@ -25,6 +25,12 @@ sidebarDepth: 1
 ### 文章系统
 1. vuepress
 2. github pages
+### 自动化测试工具
+1. karma：测试运行器，可以呼起浏览器，加载测试脚本，然后运行测试用例
+2. mocha：单元测试框架/库，可以用来写测试用例
+3. Sinon：spy / stub / mock 库，用以辅助测试
+配置自动化测试 karma.conf.js
+
 ### 持续部署工具
 1. Travis CI
 
