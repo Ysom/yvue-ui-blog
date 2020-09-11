@@ -21,6 +21,15 @@
 }
 ```
 先设置通用前缀`yv-col-`，再通过for循环从1到24，算出每一份的宽度，这样就可以根据`span`的值得到对应的类名`yv-col-n`从而得到对应的宽度。
+包括`offset`设置偏移栏数也是如此：
+```scss
+@for $n from 1 through 24 {
+  $class-prefix:yv-col-offset-;
+  &.#{$class-prefix}#{$n} {
+    margin-left: ($n / 24) * 100%
+  }
+}
+```
 
 2. `gutter`传参问题。设置分栏间隔是通过在`row`组件上面传递`gutter`参数，但实际上我们还得靠处理`col`组件来实现。一开始直接像下面这样直接把`gutter`传个每个`col`
 ```vue
@@ -89,4 +98,46 @@ methods: {
   }
 }
 ```
-设置一个计算属性col
+设置一个计算属性colClass，根据传入不同的尺寸属性生成不同的class添加到col上面，再通过媒体查询的写法，来实现不同尺寸下的宽度计算：
+```scss
+@media (min-width: 0px) {
+  @for $n from 1 through 24 {
+    $class-prefix:yv-col-phone-;
+    &.#{$class-prefix}#{$n} {
+      width: ($n / 24) * 100%
+    }
+  }
+  @for $n from 1 through 24 {
+    $class-prefix:yv-col-phone-offset-;
+    &.#{$class-prefix}#{$n} {
+      margin-left: ($n / 24) * 100%
+    }
+  }
+}
+@media (min-width: 577px) {
+  // ...
+}
+@media (min-width: 769px) {
+  // ...
+}
+@media (min-width: 993px) {
+  // ...
+}
+@media (min-width: 1201px) {
+  // ...
+}
+```
+
+## 人工测试
+手动测试。。。已完成
+
+## 自动化测试
+在**test**文件夹下增加`row.test.js`和`col.test.js`文件。
+`row.test.js`文件有3个测试用例：**测试row是否存在**、**接收getter**、**接收align**
+`col.test.js`文件有7个测试用例：**测试col是否存在**、**接收span**、**接收offset**、**接收phone**、**接收iPad**、**接收narrowPC**、**接收widePC**
+运行命令`parcel watch test/* --no-cache`和`karma start`查看测试结果：
+![layout测试结果](../public/images/layout-browser.png)
+
+## vuepress
+在**docs/.vuepress/components**文件夹下增加多个`layout-*`的vue文件，内容就是我们要展示的`layout`示例，然后在**docs/components**文件夹下增加`layout`的md文件，内容就是放置整个`layout`组件说明。
+具体内容请[访问这里](https://ysom.github.io/yvue-ui/components/layout.html)。
