@@ -21,7 +21,8 @@ module.exports = {
         title: "组件",
         collapsable: false,
         children: [
-          "/components/button.md"
+          "/components/button.md",
+          "/components/layout.md"
         ]
       }
     ]
