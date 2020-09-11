@@ -120,4 +120,4 @@ $button-radius: 4px;
 ## vuepress配置
 在**docs/.vuepress/components**文件夹下增加`button-demo`的vue文件，内容就是我们要展示的`button`示例，然后在**docs/components**文件夹下增加`button`的md文件，内容就是放置整个`button`组件说明。
 
-具体内容请访问https://ysom.github.io/yvue-ui/components/button.html#%E7%A4%BA%E4%BE%8B
+具体内容请[访问这里](https://ysom.github.io/yvue-ui/components/button.html)
