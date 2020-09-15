@@ -22,7 +22,8 @@ module.exports = {
         collapsable: false,
         children: [
           "/components/button.md",
-          "/components/layout.md"
+          "/components/layout.md",
+          "/components/container.md"
         ]
       }
     ]
