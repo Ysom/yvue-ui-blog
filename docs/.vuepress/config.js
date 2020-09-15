@@ -1,5 +1,8 @@
 module.exports = {
   title: "yvue-ui blog",
+  head: [
+    ['link', { rel: 'icon', href: '/favicon.ico' }]
+  ],
   description: "yvue-ui框架的同步博客",
   base: "/yvue-ui-blog/",
   lastUpdated: "Last Updated",
