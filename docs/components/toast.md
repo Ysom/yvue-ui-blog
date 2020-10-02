@@ -145,7 +145,15 @@
 手动测试。。。已完成。
 
 ## 自动化测试
-未完成。
+在**test**文件夹下增加`toast.test.js`文件。
+
+`toast.test.js`文件有2个主测试用例：**测试toast是否存在**、以及**接收props**；
+
+接收props有4个测试用例：**测试autoClose**、**测试closeButton**、**测试enableHtml**、**测试position**。  
+
+运行命令`parcel watch test/* --no-cache`和`karma start`查看测试结果：
+
+![toast测试结果](../public/images/toast-test.png)
 
 ## vuepress设置
 
