@@ -67,7 +67,66 @@
    }
    ```
 
-   左侧位置和右侧位置：一般两个元素并列居中展示会比较好看。
+   左侧位置和右侧位置：一般两个元素并列居中展示会看着比较舒服，如果让弹出层和content层居中展示呢？将top值加上用两个元素之间的差值除以2的值，得到的就是弹出层的位置：
+   
+   ```javascript
+   left: {
+       top: top + window.scrollY + (height - contentHeight) / 2,
+       left: left + window.screenX
+   }
+   ```
+   
+   同时由于在右侧弹出，所以右侧的left值还需加上content的宽度：
+   
+   ```javascript
+   right: {
+       top: top + window.scrollY + (height - contentHeight) / 2,
+       left: left + width + window.screenX
+   }
+   ```
+   
+   上面所用到的left、width等均来自：
+   
+   ```javascript
+   const { contentWrapper, triggerWrapper } = this.$refs
+   let { width, height, left, top } = triggerWrapper.getBoundingClientRect()
+   let { height: contentHeight } = contentWrapper.getBoundingClientRect()
+   ```
+   
+   然后根据用户传进来的`position`位置属性值，给弹出层`contentWrapper`赋值：
+   
+   ```javascript
+   contentWrapper.style.top = positions[this.position].top + 'px'
+   contentWrapper.style.left = positions[this.position].left + 'px'
+   ```
+   
+   最后还有优化的地方，即给弹出层加上一个小尾巴，这个属于CSS范畴且样式代码比较多，同样也是要分成上下左右四部分设置，看源码即可。
+
+4. 触发方式的处理。点击方式通过给**document**添加**click**监听事件，这里有个点需要注意，如果是给**body**添加**click**监听，有可能会出现因为body**高度不够**而点击不到的问题。**hover**触发方式是通过给`popover`添加**mouseenter**和**mouseleave**监听事件。
+
+   ```vue
+   <script>
+     export default {
+       mounted() {
+         if (this.trigger === 'click') {
+         	this.$refs.popover.addEventListener('click', (e) => {
+             this.showPopover(e)
+           })
+         } else {
+             this.$refs.popover.addEventListener('mouseenter', () => {
+               this.open()
+             })
+             this.$refs.popover.addEventListener('mouseleave', () => {
+               this.close()
+             })
+           }
+         }
+     }
+    </script>
+   ```
+
+   
+
 
 
 ## vuepress配置
