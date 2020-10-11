@@ -127,7 +127,47 @@
 
    
 
+5. 点击关闭弹出层的处理。对于点击后弹出的弹出框，需求是再次点击触发的区域或者页面其它地方，会关闭弹出框，点击弹出框自身不关闭。这个需求开发过程中也出现一些坑：第一个大坑是在第一次开启关闭弹出框之后，已经给document添加了监听事件，在第二次以及后面的点击弹出框时，由于事件冒泡机制，会依次触发：**点击popover弹出弹出框** -> **点击document关闭弹出框**，就会造成一个问题，弹出框刚弹出马上就被关闭了，看不到弹出框；第二个坑是关闭事件没有统一处理起来，每个需要关闭的地方都要写一遍，如果关闭的时候忘记对document取消监听click事件，就会导致后面弹出的弹出框关闭的时候会触发多次关闭事件。
 
+   针对第二个问题，先将关闭事件内聚，统一写成一个方法，将弹出框关闭，并移除对click事件的监听：
+
+   ```vue
+   <script>
+    export default {
+      methods: {
+       close() {
+         this.visible = false
+         document.removeEventListener('click', this.eventHandler)
+       } 
+     }
+   }
+   </script>
+   ```
+
+   针对第一个问题，本来是用`click.stop`加上修饰符`.stop`来阻止事件冒泡，这样在点击popover的时候就不会再触发document的点击事件，但是这样会导致用户在包裹了popover的元素上自定义的click事件失效，这显然是不行的。最后的解决方案就是各自管各自的，即document只管自己的，popover只管popover的，具体通过click事件中的参数`event.target`来判断：
+   
+   ```vue
+   <script>
+     export default {
+       methods: {
+        eventHandler(e) {
+          if (this.$refs.popover && (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))) {
+            return
+          }
+          if (this.$refs.contentWrapper && (this.$refs.contentWrapper === e.target || this.$refs.contentWrapper.contains(e.target))) {
+            return
+          }
+          this.close()
+        },
+       }
+     }
+   </script>
+   ```
+   
+   有两个判断，如果当前存在**popover**、**contentWrapper**，并且**popover**或者**contentWrapper**等于或包含了`e.target`，则不做任何处理直接返回。若不是，则调用close事件。
 
 ## vuepress配置
 
+在**docs/.vuepress/components**文件夹下增加`popover-demo`vue文件，内容就是我们要展示的`popover`示例，然后在**docs/components**文件夹下增加`popover`的md文件，内容就是放置整个`popover`组件说明。
+
+具体内容请[访问这里](https://ysom.github.io/yvue-ui/components/popover.html)。
