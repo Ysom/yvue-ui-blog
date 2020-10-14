@@ -29,7 +29,8 @@ module.exports = {
           "/components/container.md",
           "/components/tabs.md",
           "/components/toast.md",
-          "/components/popover.md"
+          "/components/popover.md",
+          "/components/collapse.md"
         ]
       }
     ]
