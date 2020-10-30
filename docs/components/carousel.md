@@ -1,11 +1,12 @@
-# 走马灯篇
+# 轮播篇
 
 ## 设计细节
 
-1. 本次走马灯功能的实现主要基于[vue过渡&动画](https://cn.vuejs.org/v2/guide/transitions.html)实现。
-2. 加上`touchStart`和`touchEnd`事件处理，增加对移动端的支持。
-3. 本次父子组件通信使用`$parent`和`$children`。
-4. 使用到了`updated`生命周期来处理轮播的选中更新等操作。
+1. 轮播分为有缝轮播和无缝轮播，这里采用的是无缝轮播。
+2. 轮播功能主要基于[vue过渡&动画](https://cn.vuejs.org/v2/guide/transitions.html)实现。
+3. 加上`touchStart`和`touchEnd`事件处理，增加对移动端的支持。
+4. 本次父子组件通信使用`$parent`和`$children`。
+5. 使用到了`updated`生命周期来处理轮播的选中更新等操作。
 
 ## 功能细节
 
