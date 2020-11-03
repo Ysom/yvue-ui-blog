@@ -165,6 +165,16 @@
    ```
    
    有两个判断，如果当前存在**popover**、**contentWrapper**，并且**popover**或者**contentWrapper**等于或包含了`e.target`，则不做任何处理直接返回。若不是，则调用close事件。
+   
+## 自动化测试
+在**test**文件夹下增加`popover.test.js`文件。
+
+`toast.test.js`文件有2个主测试用例：**测试popover是否存在**、以及**接收props**；
+
+运行命令`parcel watch test/* --no-cache`和`karma start`查看测试结果：
+
+![popover测试结果](../public/images/popover-test.png)
+
 
 ## vuepress配置
 
